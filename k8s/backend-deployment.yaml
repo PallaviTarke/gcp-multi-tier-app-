@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: gcr.io/project-pallavi-tarke/backend:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"
+        - name: DB_HOST
+          value: "34.42.178.32"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "3000"
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
+

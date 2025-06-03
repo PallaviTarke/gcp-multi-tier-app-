@@ -15,7 +15,6 @@ resource "google_compute_subnetwork" "subnet" {
   region        = var.region
 }
 
-# ------------------ GKE Cluster ------------------
 resource "google_container_cluster" "gke_cluster" {
   name     = "multi-tier-gke"
   location = var.zone
@@ -48,7 +47,7 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
-# ------------------ Cloud SQL ------------------
+
 resource "google_sql_database_instance" "mysql" {
   name             = "multi-tier-db"
   database_version = "MYSQL_8_0"
