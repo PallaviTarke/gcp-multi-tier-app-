@@ -23,6 +23,7 @@ jobs:
       with:
         project_id: project-pallavi-tarke
         export_default_credentials: true
+        install_components: gke-gcloud-auth-plugin  # 👈 this installs the required plugin
 
     - name: Configure Docker authentication
       run: gcloud auth configure-docker
